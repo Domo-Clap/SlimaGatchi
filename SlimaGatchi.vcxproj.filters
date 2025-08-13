@@ -44,16 +44,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Slime.h">
+    <ClInclude Include="Headers\Slime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="Headers\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Slime_Food.h">
+    <ClInclude Include="Headers\Slime_Food.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game_Driver.h">
+    <ClInclude Include="Headers\Game_Driver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json.hpp">
@@ -62,7 +62,7 @@
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json_fwd.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextMsgs.h">
+    <ClInclude Include="Headers\TextMsgs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

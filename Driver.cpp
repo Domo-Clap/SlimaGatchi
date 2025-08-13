@@ -8,9 +8,9 @@
 #include <fstream>
 #include <filesystem>
 
-#include "Game_Driver.h"
-#include "Slime.h"
-#include "TextMsgs.h"
+#include "Headers/Game_Driver.h"
+#include "Headers/Slime.h"
+#include "Headers/TextMsgs.h"
 
 
 using json = nlohmann::json;

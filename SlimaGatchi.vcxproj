@@ -141,11 +141,11 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json_fwd.hpp" />
-    <ClInclude Include="Game_Driver.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Slime.h" />
-    <ClInclude Include="Slime_Food.h" />
-    <ClInclude Include="TextMsgs.h" />
+    <ClInclude Include="Headers\Game_Driver.h" />
+    <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\Slime.h" />
+    <ClInclude Include="Headers\Slime_Food.h" />
+    <ClInclude Include="Headers\TextMsgs.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
