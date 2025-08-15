@@ -32,3 +32,11 @@ Slime_Food::Slime_Food(std::string name, int value)
     foodRegenValue = value;
 
 }
+
+Slime_Food::Slime_Food()
+{
+
+    foodName = "";
+    foodRegenValue = 0;
+
+}

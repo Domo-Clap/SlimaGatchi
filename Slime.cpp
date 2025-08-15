@@ -1,5 +1,6 @@
 #include "Headers/Slime.h"
 #include <iostream>
+#include <algorithm>
 
 
 //#################################################################################
@@ -355,23 +356,44 @@ Slime::Slime()
 }
 
 
-// Function to call when the slime is getting fed
-// Will take in a slime_Food object type as input
-// Logic behind this is the following:
-// If Slime_Food obj is in slime.likedFoods
-//		Calculate good food increase (baseAmount + 5)
-// Else If Slime_Food obj is in slime.dislikedFoods
-//		Calculate bad food increase (baseAmount - 5)
-// Else increase slime hunger value by base amount
-void Slime::FeedSlime()
+void Slime::FeedSlime(Slime_Food selectedFood)
 {
 
-	// Need to first display text that lists all of the foods
+	int hungerIncrease = selectedFood.getFoodRegenValu();
 
-	// After displaying the list of foods, we want to get the users input on which food they are feeding to their slime
+	for (int i = 0; i < likedFoods.size(); i++) {
 
-	// Once a valid food is selected, we need to calculate if the slime likes the food. This will be done by checking if the selected food is in the Slime's favorite food list
-	
+		if (selectedFood.getFoodName() == likedFoods[i].getFoodName()) {
+
+			std::cout << "Found a liked Food! Adding to the total increase of the hunger val!" << std::endl;
+
+			hungerIncrease = selectedFood.getFoodRegenValu() + 5;
+			break;
+
+		}
+
+	}
+
+	for (int j = 0; j < dislikeFoods.size(); j++) {
+
+		if (selectedFood.getFoodName() == dislikeFoods[j].getFoodName()) {
+
+			std::cout << "Found a disliked food! Subtracting from the total increase of hunger val!" << std::endl;
+
+			hungerIncrease = selectedFood.getFoodRegenValu() - 5;
+			break;
+
+		}
+
+	}
+
+	int newValue = slimeHungerVal + hungerIncrease;
+
+	int max = 100, min = 0;
+
+	newValue = std::clamp(newValue, min, max);
+
+	SetSlimeHungerVal(newValue);
 
 }
 
@@ -399,8 +421,6 @@ void Slime::RestSlime()
 
 		std::cout << "Slime is current sleeping already!" << std::endl;
 		std::cout << "Waking Slime up early!" << std::endl;
-
-
 
 	}
 
@@ -443,10 +463,12 @@ void Slime::SlimeStatDecay()
 
 	}
 
-	slimeHungerVal = std::max(0, slimeHungerVal);
-	slimeEnergyVal = std::max(0, slimeEnergyVal);
-	slimeHappinessVal = std::max(0, slimeHappinessVal);
-	slimeHealthVal = std::max(0, slimeHealthVal);
+	int max = 100, min = 0;
+
+	slimeHungerVal = std::clamp(slimeHungerVal, min, max);
+	slimeEnergyVal = std::clamp(slimeEnergyVal, min, max);
+	slimeHappinessVal = std::clamp(slimeHappinessVal, min, max);
+	slimeHealthVal = std::clamp(slimeHealthVal, min, max);
 
 	if (slimeHealthVal == 0) {
 

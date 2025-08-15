@@ -50,7 +50,7 @@ public:
 	Slime(std::string name, SlimeType newType, Mood mood, std::vector<Slime_Food> liked, std::vector<Slime_Food> disliked);
 	Slime();
 
-	void FeedSlime();
+	void FeedSlime(Slime_Food selectedFood);
 	void PlayWithSlime();
 	void RestSlime();
 	void SlimeStatDecay();

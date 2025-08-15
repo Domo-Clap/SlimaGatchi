@@ -8,3 +8,5 @@ void DisplayOpenAppOptions();
 void DisplaySlimeMenu(Slime* currSlime);
 void DisplaySlimeDetails(Slime* currSlime);
 void DisplayActionOptions();
+
+void DisplayFoodOptions(std::vector<Slime_Food> allFoods);

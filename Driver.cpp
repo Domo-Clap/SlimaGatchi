@@ -406,6 +406,8 @@ int main(int argc, char* args[]) {
 			baseSlime.SetSlimeHappinessVal(100);
 			baseSlime.SetSlimeMood(Happy);
 			baseSlime.SetLastSeen(now);
+			baseSlime.SetFavoriteFoods(foods);
+			baseSlime.SetDislikedFoods(foods);
 			
 
 			if (createSaveFile(&baseSlime)) {
@@ -454,10 +456,49 @@ int main(int argc, char* args[]) {
 
 			//Feed the slime
 
+			// First, we print out all food options to user
+
+			DisplayFoodOptions(foods);
+
+			// Then we prompt them for what food they want to feed the slime
+
+			std::cout << "Please select the food you wish to feed your slime:" << std::endl;
+
+			std::string foodName;
+
+			std::cin >> foodName;
+
+			Slime_Food selectedFood;
+
+			bool foundFood = false;
+
+			for (int k = 0; k < foods.size(); k++) {
+
+				if (foodName == foods[k].getFoodName()) {
+
+					selectedFood.setFoodName(foods[k].getFoodName());
+					selectedFood.setFoodRegenValu(foods[k].getFoodRegenValu());
+
+					baseSlime.FeedSlime(selectedFood);
+					
+					foundFood = true;
+
+					break;
+
+				}
+
+			}
+			
+			if (!foundFood) {
+
+				std::cout << "Food is not valid!" << std::endl;
+
+			}
+
 		}
 		else if (actionChoice == 3) {
 
-			//Play with slime
+			baseSlime.PlayWithSlime();
 
 		}
 		else if (actionChoice == 4) {
@@ -468,6 +509,14 @@ int main(int argc, char* args[]) {
 		else if (actionChoice == 5) {
 
 			//save and exit
+
+			// Need to call the updateSaveFile function
+			// Then ensure the save file was updated by printing out the json data that was saved down
+
+			
+			
+			exit(1);
+
 
 		}
 		else {

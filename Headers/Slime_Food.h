@@ -14,6 +14,7 @@ public:
 	void setFoodRegenValu(int value);
 
 	Slime_Food(std::string name, int value);
+	Slime_Food();
 
 private:
 

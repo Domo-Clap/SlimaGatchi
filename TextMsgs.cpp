@@ -1,4 +1,5 @@
 #include "Headers/TextMsgs.h"
+#include <format>
 
 void DisplayHeader() {
 
@@ -71,6 +72,22 @@ void DisplayActionOptions() {
 	std::cout << "#            3. Play With Slime                            #" << std::endl;
 	std::cout << "#            4. Put Slime to Bed                           #" << std::endl;
 	std::cout << "#            5. Save and Exit                              #" << std::endl;
+	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################" << std::endl;
+
+}
+
+void DisplayFoodOptions(std::vector<Slime_Food> allFoods)
+{
+	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################" << std::endl;
+
+	for (int i = 0; i < allFoods.size(); i++) {
+
+		std::cout << (i + 1) << ". " << allFoods[i].getFoodName() << std::endl;
+
+	}
+
 	std::cout << "############################################################" << std::endl;
 	std::cout << "############################################################" << std::endl;
 
