@@ -123,6 +123,29 @@ void Slime::SetLastSeen(time_t timestamp)
 
 }
 
+void Slime::SetAliveStatus(bool newStatus)
+{
+
+	aliveStatus = newStatus;
+
+}
+
+void Slime::SettimeWentToSleep(time_t currTime)
+{
+
+	timeWentToSleep = currTime;
+
+}
+
+void Slime::SetSleepDuration(int hrs)
+{
+
+	sleepDurationHrs = hrs;
+
+}
+
+
+
 void Slime::SetFavoriteFoods(std::vector<Slime_Food>& allFoods)
 {
 
@@ -293,23 +316,24 @@ bool Slime::getIsSleeping()
 
 time_t Slime::getLastSeen()
 {
-	return time_t();
+	return lastSeen;
 }
 
-/*
-void Slime::setSlimeTexture(SDL_Texture* texture)
+time_t Slime::getTimeWentToSleep()
 {
-	
-	slimeTexture = texture;
-
-}*/
-
-void Slime::SetAliveStatus(bool newStatus)
-{
-
-	aliveStatus = newStatus;
-
+	return timeWentToSleep;
 }
+
+int Slime::getSleepDuration()
+{
+	return sleepDurationHrs;
+}
+
+
+
+
+
+
 
 Slime::Slime(std::string name, SlimeType newType, Mood mood, std::vector<Slime_Food> liked, std::vector<Slime_Food> disliked)
 {
@@ -330,6 +354,8 @@ Slime::Slime(std::string name, SlimeType newType, Mood mood, std::vector<Slime_F
 	slimeEnergyVal = 100;
 	slimeHungerVal = 100;
 	lastSeen = time(NULL);
+	sleepDurationHrs = 0;
+	timeWentToSleep = time(NULL);
 
 }
 
@@ -352,6 +378,9 @@ Slime::Slime()
 	slimeEnergyVal = 100;
 	slimeHungerVal = 100;
 	lastSeen = time(NULL);
+
+	sleepDurationHrs = 0;
+	timeWentToSleep = time(NULL);
 
 }
 

@@ -92,3 +92,17 @@ void DisplayFoodOptions(std::vector<Slime_Food> allFoods)
 	std::cout << "############################################################" << std::endl;
 
 }
+
+void DisplaySleepOptions()
+{
+	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################" << std::endl;
+	std::cout << "#   Please Select How long your Slime should sleep for:    #" << std::endl << std::endl;
+	std::cout << "#   1. 1 hour                                              #" << std::endl;
+	std::cout << "#   2. 3 hours                                             #" << std::endl;
+	std::cout << "#   3. 6 hours                                             #" << std::endl;
+	std::cout << "#   4. 12 hours                                            #" << std::endl;
+	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################" << std::endl;
+
+}

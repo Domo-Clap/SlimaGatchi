@@ -31,6 +31,8 @@ public:
 	void SetFavoriteFoods(std::vector<Slime_Food>& allFoods);
 	void SetDislikedFoods(std::vector<Slime_Food>& allFoods);
 	void SetAliveStatus(bool newStatus);
+	void SettimeWentToSleep(time_t currTime);
+	void SetSleepDuration(int hrs);
 
 
 	// Getter Functions
@@ -45,6 +47,8 @@ public:
 	bool getAliveStatus();
 	bool getIsSleeping();
 	time_t getLastSeen();
+	time_t getTimeWentToSleep();
+	int getSleepDuration();
 
 	// Constructors
 	Slime(std::string name, SlimeType newType, Mood mood, std::vector<Slime_Food> liked, std::vector<Slime_Food> disliked);
@@ -74,6 +78,8 @@ private:
 	int slimeHappinessVal;
 
 	time_t lastSeen;
+	time_t timeWentToSleep;
+	int sleepDurationHrs;
 
 	//SDL_Texture *slimeTexture;
 

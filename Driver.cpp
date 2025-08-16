@@ -7,6 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <filesystem>
+#include <conio.h>
 
 #include "Headers/Game_Driver.h"
 #include "Headers/Slime.h"
@@ -83,7 +84,8 @@ bool createSaveFile(Slime* currSlime) {
 	newData["AliveStatus"] = currSlime->getAliveStatus();
 	newData["isSleeping"] = currSlime->getIsSleeping();
 	newData["lastSeen"] = currSlime->getLastSeen();
-
+	newData["sleepDuration"] = currSlime->getSleepDuration();
+	newData["timeWentToSleep"] = currSlime->getTimeWentToSleep();
 
 
 	std::ofstream saveFile;
@@ -451,10 +453,13 @@ int main(int argc, char* args[]) {
 
 			//Display slime details
 
-		}
-		else if (actionChoice == 2) {
+			DisplaySlimeDetails(&baseSlime);
+			getch();
 
-			//Feed the slime
+		}
+
+		// Feed Slime Action
+		else if (actionChoice == 2) {
 
 			// First, we print out all food options to user
 
@@ -496,16 +501,28 @@ int main(int argc, char* args[]) {
 			}
 
 		}
+
+		// Play with slime to increase happiness
 		else if (actionChoice == 3) {
 
 			baseSlime.PlayWithSlime();
 
 		}
+
+
+		// Lets Slime rest for certain period of time to regen energy
 		else if (actionChoice == 4) {
 
 			//slime rest
 
+			// We need to essentially have the user choose 
+
 		}
+
+
+		// Save and exit the app
+		// Logic is complete for this call
+
 		else if (actionChoice == 5) {
 
 			//save and exit
@@ -513,8 +530,26 @@ int main(int argc, char* args[]) {
 			// Need to call the updateSaveFile function
 			// Then ensure the save file was updated by printing out the json data that was saved down
 
+			updateSaveFile(&baseSlime, "SlimeSaveData.json");
 			
-			
+			std::ifstream fileToOpen("SlimeSaveData.json");
+
+			if (!fileToOpen.is_open()) {
+
+				std::cout << "Error opening the file to check if it saved correctly!" << std::endl;
+
+				return false;
+			}
+
+			json inputData;
+
+			fileToOpen >> inputData;
+
+			fileToOpen.close();
+
+
+			std::cout << inputData["lastSeen"] << std::endl;
+
 			exit(1);
 
 
