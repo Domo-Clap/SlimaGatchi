@@ -56,7 +56,7 @@ public:
 
 	void FeedSlime(Slime_Food selectedFood);
 	void PlayWithSlime();
-	void RestSlime();
+	void RestSlime(int timeToSleep);
 	void SlimeStatDecay();
 
 	//SDL_Texture* getSlimeTexture();

@@ -131,16 +131,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Driver.cpp" />
+    <ClCompile Include="File Managing.cpp" />
     <ClCompile Include="Game_Driver.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Slime_Food.cpp" />
     <ClCompile Include="TextMsgs.cpp" />
-    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json.hpp" />
     <ClInclude Include="..\..\..\Downloads\include\single_include\nlohmann\json_fwd.hpp" />
+    <ClInclude Include="Headers\File_Managing.h" />
     <ClInclude Include="Headers\Game_Driver.h" />
     <ClInclude Include="Headers\Input.h" />
     <ClInclude Include="Headers\Slime.h" />

@@ -7,7 +7,7 @@ void DisplayHeader() {
 	std::cout << "###############################################" << std::endl;
 	std::cout << "#         SlimaGatchi - CLI Edition           #" << std::endl;
 	std::cout << "###############################################" << std::endl;
-	std::cout << "###############################################" << std::endl;
+	std::cout << "###############################################\n\n\n\n" << std::endl;
 
 }
 
@@ -21,7 +21,7 @@ void DisplayOpenAppOptions() {
 	std::cout << "#      2. Create/Load Save File               #" << std::endl;
 	std::cout << "#      3. Exit App                            #" << std::endl;
 	std::cout << "###############################################" << std::endl;
-	std::cout << "###############################################" << std::endl;
+	std::cout << "###############################################\n\n\n\n" << std::endl;
 }
 
 
@@ -41,7 +41,7 @@ void DisplaySlimeMenu(Slime* currSlime) {
 	std::cout << " Happiness: " << currSlime->getSlimeHappinessVal() << std::endl;
 
 	std::cout << "############################################################" << std::endl;
-	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################\n\n\n\n" << std::endl;
 
 
 }
@@ -58,7 +58,7 @@ void DisplaySlimeDetails(Slime* currSlime) {
 	std::cout << " Slime Alive Status: " << currSlime->getAliveStatus() << std::endl;
 	std::cout << " Slime Sleeping Stati: " << currSlime->getIsSleeping() << std::endl;
 	std::cout << "############################################################" << std::endl;
-	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################\n\n\n\n" << std::endl;
 
 }
 
@@ -73,7 +73,7 @@ void DisplayActionOptions() {
 	std::cout << "#            4. Put Slime to Bed                           #" << std::endl;
 	std::cout << "#            5. Save and Exit                              #" << std::endl;
 	std::cout << "############################################################" << std::endl;
-	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################\n\n\n\n" << std::endl;
 
 }
 
@@ -89,7 +89,7 @@ void DisplayFoodOptions(std::vector<Slime_Food> allFoods)
 	}
 
 	std::cout << "############################################################" << std::endl;
-	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################\n\n\n\n" << std::endl;
 
 }
 
@@ -103,6 +103,6 @@ void DisplaySleepOptions()
 	std::cout << "#   3. 6 hours                                             #" << std::endl;
 	std::cout << "#   4. 12 hours                                            #" << std::endl;
 	std::cout << "############################################################" << std::endl;
-	std::cout << "############################################################" << std::endl;
+	std::cout << "############################################################\n\n\n\n" << std::endl;
 
 }

@@ -435,38 +435,33 @@ void Slime::PlayWithSlime()
 
 }
 
-
-// Function used to allow the slime to rest for a set amount of time.
-// When this function is called, user will get to set how long the slime will rest for.
-// Can be anywhere from 30 minutes - 240 minutes
-// During rest, the mood will be updated to sleeping
-// While slime isSleeping, all other buttons are disabled
-
 // Need to build a timer that tracks when isSleeping will move to false.
-void Slime::RestSlime()
+void Slime::RestSlime(int timeToSleep)
 {
 
 	if (isSleeping) {
 
 		std::cout << "Slime is current sleeping already!" << std::endl;
-		std::cout << "Waking Slime up early!" << std::endl;
+
+		return;
 
 	}
+
+	isSleeping = true;
+	timeWentToSleep = time(NULL);
+	sleepDurationHrs = timeToSleep;
+	
 
 }
 
 
-// General time decay function
-// Hunger will decrease at a certain rate 
-// Energy will only decrease if slime is awake. It will go up if asleep
-// And happiness will only start decreasing if the user is gone for more than 5 hours while slime is not sleeping
 void Slime::SlimeStatDecay()
 {
 
 	time_t currentTime = time(NULL);
 
 	// Time passed in hours
-	int timePassed = difftime(currentTime, lastSeen) / 3600;
+	double timePassed = difftime(currentTime, lastSeen) / 3600;
 
 
 	// Hunger decrease

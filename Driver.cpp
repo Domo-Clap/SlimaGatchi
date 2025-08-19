@@ -9,224 +9,15 @@
 #include <filesystem>
 #include <conio.h>
 
+
 #include "Headers/Game_Driver.h"
 #include "Headers/Slime.h"
 #include "Headers/TextMsgs.h"
+#include "Headers/File_Managing.h"
 
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
-
-
-bool loadSaveFile(Slime* currSlime, std::string filepath) {
-
-	if (fs::exists(filepath)) {
-
-		// We want to open the file in the filePath
-		std::ifstream fileToOpen(filepath);
-
-		if (!fileToOpen.is_open()) {
-
-			std::cout << "Error opening the file!" << std::endl;
-
-			return false;
-		}
-
-		json inputData;
-
-		fileToOpen >> inputData;
-
-		fileToOpen.close();
-
-		currSlime->SetSlimeName(inputData["SlimeName"].get<std::string>());
-		currSlime->SetSlimeAge(inputData["SlimeAge"].get<int>());
-		currSlime->SetSlimeType(inputData["SlimeType"].get<SlimeType>());
-		currSlime->SetSlimeHungerVal(inputData["Values"]["HungerVal"].get<int>());
-		currSlime->SetSlimeHealthVal(inputData["Values"]["HealthVal"].get<int>());
-		currSlime->SetSlimeEnergyVal(inputData["Values"]["EnergyVal"].get<int>());
-		currSlime->SetSlimeHappinessVal(inputData["Values"]["HappinessVal"].get<int>());
-		currSlime->SetSlimeMood(inputData["Mood"].get<Mood>());
-		currSlime->SetAliveStatus(inputData["AliveStatus"].get<bool>());
-		currSlime->SetIsSleeping(inputData["isSleeping"].get<bool>());
-		currSlime->SetLastSeen(inputData["lastSeen"].get<time_t>());
-
-		currSlime->SlimeStatDecay();
-
-		currSlime->SetLastSeen(std::time(NULL));
-
-		std::cout << "Save Data loaded successfully!" << std::endl;
-
-		return true;
-
-	}
-	else {
-
-		std::cout << "File does not exist. No slime to load!" << std::endl;
-		return false;
-
-	}
-
-
-}
-
-bool createSaveFile(Slime* currSlime) {
-
-	json newData;
-
-	newData["SlimeName"] = currSlime->getSlimeName();
-	newData["SlimeAge"] = currSlime->getSlimeAge();
-	newData["SlimeType"] = currSlime->getType();
-	newData["Values"]["HungerVal"] = currSlime->getSlimeHungerVal();
-	newData["Values"]["HealthVal"] = currSlime->getSlimeHealthVal();
-	newData["Values"]["EnergyVal"] = currSlime->getSlimeEnergyVal();
-	newData["Values"]["HappinessVal"] = currSlime->getSlimeHappinessVal();
-	newData["Mood"] = currSlime->getSlimeMood();
-	newData["AliveStatus"] = currSlime->getAliveStatus();
-	newData["isSleeping"] = currSlime->getIsSleeping();
-	newData["lastSeen"] = currSlime->getLastSeen();
-	newData["sleepDuration"] = currSlime->getSleepDuration();
-	newData["timeWentToSleep"] = currSlime->getTimeWentToSleep();
-
-
-	std::ofstream saveFile;
-	std::string fileName = "SlimeSaveData.json";
-
-	if (fs::exists(fileName)) {
-
-		std::cout << "File already exists! Confirm whether file should be deleted and overwritten." << std::endl;
-
-		std::cout << "Do you wish to delete your old Save File, and create a new one? (y/n)" << std::endl;
-
-		char choice;
-
-		std::cin >> choice;
-
-		if (choice == 'y' || choice == 'Y') {
-
-			if (fs::remove(fileName)) {
-
-				std::cout << "Previous save file has been deleted!\n\n Making new save file now!" << std::endl;
-
-				saveFile.open(fileName);
-
-				if (!saveFile.is_open()) {
-
-
-					std::cout << "Error creating file!" << std::endl;
-
-					return false;
-
-				}
-
-				std::cout << "Save File created successfully!" << std::endl;
-
-				saveFile << newData.dump(4);
-				saveFile.close();
-
-				return true;
-
-			}
-			else {
-
-				std::cout << "Failed to delete old save file!" << std::endl;
-
-				return false;
-
-			}
-
-		}
-		else if (choice == 'n' || choice == 'N') {
-
-			std::cout << "Previous save file has not been deleted!\n\n Exiting creation process now!" << std::endl;
-			return false;
-
-		}
-		else {
-
-			std::cout << "Invalid Response! Exiting create/overwrite process!" << std::endl;
-
-		}
-
-	}
-	else {
-
-		std::cout << "Save file does not already exist! Creating new file from scratch!" << std::endl;
-
-		saveFile.open(fileName);
-
-		if (!saveFile.is_open()) {
-
-
-			std::cout << "Error creating file!" << std::endl;
-
-			return false;
-
-
-		}
-
-		std::cout << "Save File created successfully!" << std::endl;
-
-		saveFile << newData.dump(4);
-
-
-		saveFile.close();
-
-		return true;
-
-	}
-
-}
-
-
-bool updateSaveFile(Slime* currSlime, std::string filepath) {
-
-	std::ofstream fileToSave;
-
-	if (fs::exists(filepath)) {
-
-		fileToSave.open(filepath);
-
-		if (!fileToSave.is_open()) {
-
-			std::cout << "Error saving file!" << std::endl;
-
-			return false;
-
-		}
-
-		json newData;
-
-		newData["SlimeName"] = currSlime->getSlimeName();
-		newData["SlimeAge"] = currSlime->getSlimeAge();
-		newData["SlimeType"] = currSlime->getType();
-		newData["Values"]["HungerVal"] = currSlime->getSlimeHungerVal();
-		newData["Values"]["HealthVal"] = currSlime->getSlimeHealthVal();
-		newData["Values"]["EnergyVal"] = currSlime->getSlimeEnergyVal();
-		newData["Values"]["HappinessVal"] = currSlime->getSlimeHappinessVal();
-		newData["Mood"] = currSlime->getSlimeMood();
-		newData["AliveStatus"] = currSlime->getAliveStatus();
-		newData["isSleeping"] = currSlime->getIsSleeping();
-		newData["lastSeen"] = std::time(NULL);
-
-		fileToSave << newData.dump(4);
-
-
-		fileToSave.close();
-
-		return true;
-
-
-	}
-
-	else {
-
-		std::cout << "Error saving file! File does not exist! Exiting save file process!" << std::endl;
-
-	}
-
-}
-
-
 
 
 void LoadAllFoods(std::vector<Slime_Food>& foods) {
@@ -285,6 +76,34 @@ void LoadAllFoods(std::vector<Slime_Food>& foods) {
 
 
 
+
+void checkWakeup(Slime* currSlime) {
+
+	if (!currSlime->getIsSleeping()) {
+
+		return;
+
+	}
+
+	time_t now = time(NULL);
+
+	double elapsedSeconds = difftime(now, currSlime->getTimeWentToSleep());
+
+	// If the time that has passed since the slime went to sleep is greater than the set value by the user, then the slime wakes up and gains energy value
+	if (elapsedSeconds >= currSlime->getSleepDuration() * 60 * 60) {
+
+		currSlime->SetIsSleeping(false);
+
+		int slimeEnergyGain = ((elapsedSeconds / 3600) / 60) * 5;
+
+		currSlime->SetSlimeEnergyVal(slimeEnergyGain);
+
+	}
+
+}
+
+
+
 int main(int argc, char* args[]) {
 
 	std::vector<Slime_Food> foods = {};
@@ -294,8 +113,11 @@ int main(int argc, char* args[]) {
 	Game_Driver driver;
 	Slime baseSlime;
 
-	while (1) {
 
+	bool OUTER_LOOP = true;
+	bool INNER_LOOP = false;
+
+	while (OUTER_LOOP) {
 
 		DisplayHeader();
 
@@ -316,9 +138,11 @@ int main(int argc, char* args[]) {
 			else {
 
 				std::cout << "Could not find the save data!" << std::endl;
-				return 0;
+				continue;
 
 			}
+
+			INNER_LOOP = true;
 
 		}
 		// Create Save File
@@ -332,6 +156,7 @@ int main(int argc, char* args[]) {
 
 			std::string name;
 			std::getline(std::cin, name);
+			std::cin.ignore();
 
 
 			std::cout << "############################################################" << std::endl;
@@ -391,7 +216,7 @@ int main(int argc, char* args[]) {
 			else {
 
 				std::cout << "Bad input!" << std::endl;
-				return 0;
+				continue;
 
 			}
 
@@ -421,8 +246,10 @@ int main(int argc, char* args[]) {
 
 				std::cout << "Could not create the slime!!!" << std::endl;
 
-				return 0;
+				continue;
 			}
+
+			INNER_LOOP = true;
 
 		}
 		// Exit App
@@ -435,134 +262,177 @@ int main(int argc, char* args[]) {
 		else {
 
 			std::cout << "Bad Input! Relooping" << std::endl;
+			continue;
 
 		}
 
 
-		// Now that we went through the load/create process, we need to display the main UI screen to the user
-		DisplaySlimeMenu(&baseSlime);
+
+		while (INNER_LOOP) {
+
+			// Now that we went through the load/create process, we need to display the main UI screen to the user
+			DisplaySlimeMenu(&baseSlime);
 
 
-		DisplayActionOptions();
+			DisplayActionOptions();
 
-		int actionChoice;
+			int actionChoice;
 
-		std::cin >> actionChoice;
+			std::cin >> actionChoice;
 
-		if (actionChoice == 1) {
+			if (actionChoice == 1) {
 
-			//Display slime details
+				//Display slime details
 
-			DisplaySlimeDetails(&baseSlime);
-			getch();
+				DisplaySlimeDetails(&baseSlime);
+				_getch();
 
-		}
+			}
 
-		// Feed Slime Action
-		else if (actionChoice == 2) {
+			// Feed Slime Action
+			else if (actionChoice == 2) {
 
-			// First, we print out all food options to user
+				// First, we print out all food options to user
 
-			DisplayFoodOptions(foods);
+				DisplayFoodOptions(foods);
 
-			// Then we prompt them for what food they want to feed the slime
+				// Then we prompt them for what food they want to feed the slime
 
-			std::cout << "Please select the food you wish to feed your slime:" << std::endl;
+				std::cout << "Please select the food you wish to feed your slime:" << std::endl;
 
-			std::string foodName;
+				std::string foodName;
 
-			std::cin >> foodName;
+				std::cin >> foodName;
 
-			Slime_Food selectedFood;
+				Slime_Food selectedFood;
 
-			bool foundFood = false;
+				bool foundFood = false;
 
-			for (int k = 0; k < foods.size(); k++) {
+				for (int k = 0; k < foods.size(); k++) {
 
-				if (foodName == foods[k].getFoodName()) {
+					if (foodName == foods[k].getFoodName()) {
 
-					selectedFood.setFoodName(foods[k].getFoodName());
-					selectedFood.setFoodRegenValu(foods[k].getFoodRegenValu());
+						selectedFood.setFoodName(foods[k].getFoodName());
+						selectedFood.setFoodRegenValu(foods[k].getFoodRegenValu());
 
-					baseSlime.FeedSlime(selectedFood);
-					
-					foundFood = true;
+						baseSlime.FeedSlime(selectedFood);
 
-					break;
+						foundFood = true;
+
+						break;
+
+					}
+
+				}
+
+				if (!foundFood) {
+
+					std::cout << "Food is not valid!" << std::endl;
+					continue;
 
 				}
 
 			}
-			
-			if (!foundFood) {
 
-				std::cout << "Food is not valid!" << std::endl;
+			// Play with slime to increase happiness
+			else if (actionChoice == 3) {
+
+				baseSlime.PlayWithSlime();
 
 			}
 
-		}
 
-		// Play with slime to increase happiness
-		else if (actionChoice == 3) {
+			// Lets Slime rest for certain period of time to regen energy
+			else if (actionChoice == 4) {
 
-			baseSlime.PlayWithSlime();
+				if (baseSlime.getIsSleeping()) {
 
-		}
+					std::cout << "Slime is already sleeping! Cannot undo this! Wait until it wakes up!" << std::endl;
+					continue;
 
-
-		// Lets Slime rest for certain period of time to regen energy
-		else if (actionChoice == 4) {
-
-			//slime rest
-
-			// We need to essentially have the user choose 
-
-		}
+				}
 
 
-		// Save and exit the app
-		// Logic is complete for this call
+				// Displays the sleep time options to console
+				DisplaySleepOptions();
 
-		else if (actionChoice == 5) {
+				int userSleepChoice = 0;
+				int timeToSleep = 0;
 
-			//save and exit
+				std::cin >> userSleepChoice;
 
-			// Need to call the updateSaveFile function
-			// Then ensure the save file was updated by printing out the json data that was saved down
+				if (userSleepChoice == 1) {
 
-			updateSaveFile(&baseSlime, "SlimeSaveData.json");
-			
-			std::ifstream fileToOpen("SlimeSaveData.json");
+					timeToSleep = 1;
+					std::cout << "User selected 1 hours of sleep!" << std::endl;
+					baseSlime.RestSlime(timeToSleep);
 
-			if (!fileToOpen.is_open()) {
+				}
+				else if (userSleepChoice == 2) {
 
-				std::cout << "Error opening the file to check if it saved correctly!" << std::endl;
+					timeToSleep = 3;
+					std::cout << "User selected 3 hours of sleep!" << std::endl;
+					baseSlime.RestSlime(timeToSleep);
 
-				return false;
+				}
+				else if (userSleepChoice == 3) {
+
+					timeToSleep = 6;
+					std::cout << "User selected 6 hours of sleep!" << std::endl;
+					baseSlime.RestSlime(timeToSleep);
+
+				}
+				else if (userSleepChoice == 4) {
+
+					timeToSleep = 12;
+					std::cout << "User selected 12 hours of sleep!" << std::endl;
+					baseSlime.RestSlime(timeToSleep);
+
+				}
+				else {
+
+					std::cout << "Invalid sleep time option! Returning to main loop!" << std::endl;
+					continue;
+
+				}
+
 			}
 
-			json inputData;
+			else if (actionChoice == 5) {
 
-			fileToOpen >> inputData;
+				//save and exit
+				updateSaveFile(&baseSlime, "SlimeSaveData.json");
 
-			fileToOpen.close();
+				std::ifstream fileToOpen("SlimeSaveData.json");
+
+				if (!fileToOpen.is_open()) {
+
+					std::cout << "Error opening the file to check if it saved correctly!" << std::endl;
+
+					return false;
+				}
+
+				json inputData;
+
+				fileToOpen >> inputData;
+
+				fileToOpen.close();
 
 
-			std::cout << inputData["lastSeen"] << std::endl;
+				std::cout << inputData["lastSeen"] << std::endl;
 
-			exit(1);
+				exit(1);
 
 
+			}
+			else {
+
+				std::cout << "Bad Input!" << std::endl;
+				continue;
+
+			}
 		}
-		else {
-
-			std::cout << "Bad Input!" << std::endl;
-			return 0;
-
-		}
-
 	}
-
 }
 
 
