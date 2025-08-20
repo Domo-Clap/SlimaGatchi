@@ -1,6 +1,63 @@
 #include "Headers/TextMsgs.h"
 #include <format>
 
+std::ostream& operator <<(std::ostream& out, SlimeType type) {
+
+	switch (type) {
+
+		case SlimeType::Electric: 
+			out << "Electric";
+			break;
+		case SlimeType::Pyro:
+			out << "Pyro";
+			break;
+		case SlimeType::Water:
+			out << "Water";
+			break;
+		case SlimeType::Earth:
+			out << "Earth";
+			break;
+		case SlimeType::Ice:
+			out << "Ice";
+			break;
+		case SlimeType::Light:
+			out << "Light";
+			break;
+		case SlimeType::Dark:
+			out << "Dark";
+			break;
+
+	}
+
+	return out;
+
+}
+
+
+std::ostream& operator <<(std::ostream& out, Mood slimeMood) {
+
+	switch (slimeMood) {
+
+		case Mood::Happy:
+			out << "Happy";
+			break;
+		case Mood::Hungry:
+			out << "Hungry";
+			break;
+		case Mood::Tired:
+			out << "Tired";
+			break;
+		case Mood::Upset:
+			out << "Upset";
+			break;
+
+	}
+
+	return out;
+
+}
+
+
 void DisplayHeader() {
 
 	std::cout << "###############################################" << std::endl;
@@ -29,9 +86,9 @@ void DisplaySlimeMenu(Slime* currSlime) {
 
 	std::cout << "############################################################" << std::endl;
 	std::cout << "############################################################" << std::endl;
-	std::cout << "#                        .------.                          #" << std::endl;
-	std::cout << "#                       / (o o) \\                         #" << std::endl;
-	std::cout << "#                      \\_______/                          #" << std::endl;
+	std::cout << "#                        .-----.                           #" << std::endl;
+	std::cout << "#                       / (o o) \\                          #" << std::endl;
+	std::cout << "#                       \\_______/                          #" << std::endl;
 	std::cout << "############################################################" << std::endl;
 
 	std::cout << " Slime Name: " << currSlime->getSlimeName() << std::endl;
@@ -52,11 +109,11 @@ void DisplaySlimeDetails(Slime* currSlime) {
 	std::cout << "############################################################" << std::endl;
 	std::cout << "############################################################" << std::endl;
 	std::cout << " Slime Name: " << currSlime->getSlimeName() << std::endl;
-	std::cout << " Slime Age: " << currSlime->getSlimeName() << std::endl;
+	std::cout << " Slime Age: " << currSlime->getSlimeAge() << std::endl;
 	std::cout << " Slime Type: " << currSlime->getType() << std::endl;
 	std::cout << " Slime Mood: " << currSlime->getSlimeMood() << std::endl;
 	std::cout << " Slime Alive Status: " << currSlime->getAliveStatus() << std::endl;
-	std::cout << " Slime Sleeping Stati: " << currSlime->getIsSleeping() << std::endl;
+	std::cout << " Slime Sleeping Statis: " << currSlime->getIsSleeping() << std::endl;
 	std::cout << "############################################################" << std::endl;
 	std::cout << "############################################################\n\n\n\n" << std::endl;
 
@@ -66,7 +123,8 @@ void DisplayActionOptions() {
 
 	std::cout << "############################################################" << std::endl;
 	std::cout << "############################################################" << std::endl;
-	std::cout << "#            Please Select One of the Following:           #" << std::endl << std::endl;
+	std::cout << "#            Please Select One of the Following:           #" << std::endl;
+	std::cout << "#                                                          #" << std::endl;
 	std::cout << "#            1. Check Slime Details                        #" << std::endl;
 	std::cout << "#            2. Feed Slime                                 #" << std::endl;
 	std::cout << "#            3. Play With Slime                            #" << std::endl;

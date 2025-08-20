@@ -1,0 +1,17 @@
+{
+    "AliveStatus": true,
+    "Mood": "Happy",
+    "SlimeAge": 1,
+    "SlimeName": "Payo",
+    "SlimeType": "Pyro",
+    "Values": {
+        "EnergyVal": 79,
+        "HappinessVal": 100,
+        "HealthVal": 100,
+        "HungerVal": 99
+    },
+    "isSleeping": false,
+    "lastSeen": 1755669188,
+    "sleepDuration": 0,
+    "timeWentToSleep": 1755668792
+}

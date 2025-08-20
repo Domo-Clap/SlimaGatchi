@@ -8,6 +8,7 @@
 #include <fstream>
 #include <filesystem>
 #include <conio.h>
+#include <limits>
 
 
 #include "Headers/Game_Driver.h"
@@ -18,6 +19,26 @@
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
+
+
+NLOHMANN_JSON_SERIALIZE_ENUM(SlimeType, {
+
+	{SlimeType::Electric, "Electric"},
+	{SlimeType::Pyro, "Pyro"},
+	{SlimeType::Water, "Water"},
+	{SlimeType::Ice, "Ice"},
+	{SlimeType::Earth, "Earth"},
+	{SlimeType::Light, "Light"},
+	{SlimeType::Dark, "Dark"},
+})
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Mood, {
+
+	{Mood::Upset, "Upset"},
+	{Mood::Hungry, "Hungry"},
+	{Mood::Happy, "Happy"},
+	{Mood::Tired, "Tired"},
+})
 
 
 void LoadAllFoods(std::vector<Slime_Food>& foods) {
@@ -96,7 +117,13 @@ void checkWakeup(Slime* currSlime) {
 
 		int slimeEnergyGain = ((elapsedSeconds / 3600) / 60) * 5;
 
-		currSlime->SetSlimeEnergyVal(slimeEnergyGain);
+		int max = 100, min = 0;
+
+		int newValue = slimeEnergyGain + currSlime->getSlimeEnergyVal();
+
+		newValue = std::clamp(newValue, min, max);
+
+		currSlime->SetSlimeEnergyVal(newValue);
 
 	}
 
@@ -126,6 +153,9 @@ int main(int argc, char* args[]) {
 		int mainChoice;
 
 		std::cin >> mainChoice;
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+
 
 		// Load Save File
 		if (mainChoice == 1) {
@@ -155,9 +185,9 @@ int main(int argc, char* args[]) {
 			std::cout << "############################################################" << std::endl;
 
 			std::string name;
-			std::getline(std::cin, name);
-			std::cin.ignore();
-
+			std::cin >> name;
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
 
 			std::cout << "############################################################" << std::endl;
 			std::cout << "############################################################" << std::endl;
@@ -176,41 +206,42 @@ int main(int argc, char* args[]) {
 
 			int type;
 			std::cin >> type;
-
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
 
 			if (type == 1) {
 
-				selectedType = Pyro;
+				selectedType = SlimeType::Pyro;
 
 			}
 			else if (type == 2) {
 
-				selectedType = Water;
+				selectedType = SlimeType::Water;
 
 			}
 			else if (type == 3) {
 
-				selectedType = Ice;
+				selectedType = SlimeType::Ice;
 
 			}
 			else if (type == 4) {
 
-				selectedType = Electric;
+				selectedType = SlimeType::Electric;
 
 			}
 			else if (type == 5) {
 
-				selectedType = Earth;
+				selectedType = SlimeType::Earth;
 
 			}
 			else if (type == 6) {
 
-				selectedType = Light;
+				selectedType = SlimeType::Light;
 
 			}
 			else if (type == 7) {
 
-				selectedType = Dark;
+				selectedType = SlimeType::Dark;
 
 			}
 			else {
@@ -231,7 +262,7 @@ int main(int argc, char* args[]) {
 			baseSlime.SetSlimeHealthVal(100);
 			baseSlime.SetSlimeEnergyVal(100);
 			baseSlime.SetSlimeHappinessVal(100);
-			baseSlime.SetSlimeMood(Happy);
+			baseSlime.SetSlimeMood(Mood::Happy);
 			baseSlime.SetLastSeen(now);
 			baseSlime.SetFavoriteFoods(foods);
 			baseSlime.SetDislikedFoods(foods);
@@ -266,19 +297,19 @@ int main(int argc, char* args[]) {
 
 		}
 
-
-
 		while (INNER_LOOP) {
+
+			checkWakeup(&baseSlime);
 
 			// Now that we went through the load/create process, we need to display the main UI screen to the user
 			DisplaySlimeMenu(&baseSlime);
-
 
 			DisplayActionOptions();
 
 			int actionChoice;
 
 			std::cin >> actionChoice;
+
 
 			if (actionChoice == 1) {
 
@@ -291,6 +322,13 @@ int main(int argc, char* args[]) {
 
 			// Feed Slime Action
 			else if (actionChoice == 2) {
+
+				if (baseSlime.getIsSleeping()) {
+
+					std::cout << "Slime is currently sleeping! Cannot perform this action!" << std::endl;
+					continue;
+
+				}
 
 				// First, we print out all food options to user
 
@@ -336,6 +374,13 @@ int main(int argc, char* args[]) {
 
 			// Play with slime to increase happiness
 			else if (actionChoice == 3) {
+
+				if (baseSlime.getIsSleeping()) {
+
+					std::cout << "Slime is currently sleeping! Cannot perform this action!" << std::endl;
+					continue;
+
+				}
 
 				baseSlime.PlayWithSlime();
 

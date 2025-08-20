@@ -158,43 +158,43 @@ void Slime::SetFavoriteFoods(std::vector<Slime_Food>& allFoods)
 
 	switch (type) {
 
-		case Pyro:
+		case SlimeType::Pyro:
 
 			likedFoods.push_back(allFoods[0]);
 			likedFoods.push_back(allFoods[1]);
 			break;
 
-		case Electric:
+		case SlimeType::Electric:
 
 			likedFoods.push_back(allFoods[2]);
 			likedFoods.push_back(allFoods[3]);
 			break;
 
-		case Water:
+		case SlimeType::Water:
 
 			likedFoods.push_back(allFoods[4]);
 			likedFoods.push_back(allFoods[5]);
 			break;
 
-		case Ice:
+		case SlimeType::Ice:
 
 			likedFoods.push_back(allFoods[6]);
 			likedFoods.push_back(allFoods[7]);
 			break;
 
-		case Earth:
+		case SlimeType::Earth:
 
 			likedFoods.push_back(allFoods[8]);
 			likedFoods.push_back(allFoods[9]);
 			break;
 
-		case Light:
+		case SlimeType::Light:
 
 			likedFoods.push_back(allFoods[10]);
 			likedFoods.push_back(allFoods[11]);
 			break;
 
-		case Dark:
+		case SlimeType::Dark:
 
 			likedFoods.push_back(allFoods[12]);
 			likedFoods.push_back(allFoods[13]);
@@ -212,43 +212,43 @@ void Slime::SetDislikedFoods(std::vector<Slime_Food>& allFoods)
 
 	switch (type) {
 
-		case Pyro:
+		case SlimeType::Pyro:
 
 			dislikeFoods.push_back(allFoods[4]);
 			dislikeFoods.push_back(allFoods[5]);
 			break;
 
-		case Electric:
+		case SlimeType::Electric:
 
 			dislikeFoods.push_back(allFoods[8]);
 			dislikeFoods.push_back(allFoods[9]);
 			break;
 
-		case Water:
+		case SlimeType::Water:
 
 			dislikeFoods.push_back(allFoods[2]);
 			dislikeFoods.push_back(allFoods[3]);
 			break;
 
-		case Ice:
+		case SlimeType::Ice:
 
 			dislikeFoods.push_back(allFoods[0]);
 			dislikeFoods.push_back(allFoods[1]);
 			break;
 
-		case Earth:
+		case SlimeType::Earth:
 
 			dislikeFoods.push_back(allFoods[6]);
 			dislikeFoods.push_back(allFoods[7]);
 			break;
 
-		case Light:
+		case SlimeType::Light:
 
 			dislikeFoods.push_back(allFoods[12]);
 			dislikeFoods.push_back(allFoods[13]);
 			break;
 
-		case Dark:
+		case SlimeType::Dark:
 
 			dislikeFoods.push_back(allFoods[10]);
 			dislikeFoods.push_back(allFoods[11]);
@@ -364,8 +364,8 @@ Slime::Slime()
 
 	SlimeName = "";
 	SlimeAge = 1;
-	type = Pyro;
-	SlimeMood = Happy;
+	type = SlimeType::Pyro;
+	SlimeMood = Mood::Happy;
 
 	dislikeFoods = {};
 	likedFoods = {};
@@ -432,6 +432,13 @@ void Slime::PlayWithSlime()
 
 	slimeEnergyVal -= 10;
 	slimeHappinessVal += 8;
+	
+	int max = 100, min = 0;
+
+
+	// Need to clamp values to make sure do not go above or below 0 - 100
+	slimeEnergyVal = std::clamp(slimeEnergyVal, min, max);
+	slimeHappinessVal = std::clamp(slimeHappinessVal, min, max);
 
 }
 

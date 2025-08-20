@@ -4,6 +4,24 @@
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
+NLOHMANN_JSON_SERIALIZE_ENUM(SlimeType, {
+
+	{SlimeType::Electric, "Electric"},
+	{SlimeType::Pyro, "Pyro"},
+	{SlimeType::Water, "Water"},
+	{SlimeType::Ice, "Ice"},
+	{SlimeType::Earth, "Earth"},
+	{SlimeType::Light, "Light"},
+	{SlimeType::Dark, "Dark"},
+	})
+
+NLOHMANN_JSON_SERIALIZE_ENUM(Mood, {
+
+		{Mood::Upset, "Upset"},
+		{Mood::Hungry, "Hungry"},
+		{Mood::Happy, "Happy"},
+		{Mood::Tired, "Tired"},
+})
 
 bool loadSaveFile(Slime* currSlime, std::string filepath) {
 

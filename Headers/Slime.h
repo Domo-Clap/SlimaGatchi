@@ -7,9 +7,9 @@
 #include <SDL_image.h>
 #include <ctime>
 
-enum SlimeType { Electric, Pyro, Water, Ice, Earth, Light, Dark };
+enum class SlimeType { Electric, Pyro, Water, Ice, Earth, Light, Dark };
 
-enum Mood { Upset, Hungry, Happy, Tired,  };
+enum class Mood { Upset, Hungry, Happy, Tired };
 
 
 class Slime

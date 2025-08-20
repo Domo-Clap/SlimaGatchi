@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "Slime.h"
+#include <string>
 
 void DisplayHeader();
 void DisplayOpenAppOptions();
