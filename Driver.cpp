@@ -130,7 +130,28 @@ void checkWakeup(Slime* currSlime) {
 }
 
 
+int main(int argc, char* args[]) {
 
+
+	Game_Driver gameDriver;
+
+
+	while (1) {
+
+		gameDriver.initMainWindow();
+
+
+	}
+
+	
+
+
+	return 1;
+
+}
+
+
+/*
 int main(int argc, char* args[]) {
 
 	std::vector<Slime_Food> foods = {};
@@ -479,5 +500,5 @@ int main(int argc, char* args[]) {
 		}
 	}
 }
-
+*/
 

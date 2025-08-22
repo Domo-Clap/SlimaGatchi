@@ -133,7 +133,9 @@
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="File Managing.cpp" />
     <ClCompile Include="Game_Driver.cpp" />
-    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Screens\MainSlimeScreen.cpp" />
+    <ClCompile Include="Screens\SlimeDetailsScreen.cpp" />
+    <ClCompile Include="Screens\TitleScreen.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Slime_Food.cpp" />
     <ClCompile Include="TextMsgs.cpp" />
@@ -144,6 +146,9 @@
     <ClInclude Include="Headers\File_Managing.h" />
     <ClInclude Include="Headers\Game_Driver.h" />
     <ClInclude Include="Headers\Input.h" />
+    <ClInclude Include="Headers\Screens\MainSlimeScreen.h" />
+    <ClInclude Include="Headers\Screens\SlimeDetailsScreen.h" />
+    <ClInclude Include="Headers\Screens\TitleScreen.h" />
     <ClInclude Include="Headers\Slime.h" />
     <ClInclude Include="Headers\Slime_Food.h" />
     <ClInclude Include="Headers\TextMsgs.h" />
